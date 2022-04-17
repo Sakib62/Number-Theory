@@ -27,7 +27,7 @@ void primeFactorizationOptimized(int n) {
         else spf[i] = 2; //spf of even number is 2
     }
     
-    for(int i = 3; i * i <= n; i++) {
+    for(int i = 3; i * i <= n; i += 2) { //don't need to check multiples of even numbers. Spf of all even is 2.
         for(int j = i * i; j <= n; j += 2 * i) {
             if(spf[j] == j) //if the value is unchanged. // we only want to store the smallest factor.
                 spf[j] = i;
