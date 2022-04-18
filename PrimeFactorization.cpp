@@ -21,6 +21,7 @@ void primeFactorizationOptimized(int n) {
     //keep smallest prime factor in each number.
     //first keep i to a[i], so that primes greater than i * i will hold their own value
     
+    //PreComputing smallest prime factor
     vector<int> spf(n + 1);
     for(int i = 2; i <= n; i++) {
         if(i & 1) spf[i] = i;
@@ -28,12 +29,15 @@ void primeFactorizationOptimized(int n) {
     }
     
     for(int i = 3; i * i <= n; i += 2) { //don't need to check multiples of even numbers. Spf of all even is 2.
-        for(int j = i * i; j <= n; j += 2 * i) {
-            if(spf[j] == j) //if the value is unchanged. // we only want to store the smallest factor.
-                spf[j] = i;
+        if(spf[i] == i) { //only if prime
+            for(int j = i * i; j <= n; j += 2 * i) { // 2 * i, so no even multiple need to be checked
+                if(spf[j] == j) //if the value is unchanged. // we only want to store the smallest factor.
+                    spf[j] = i;
+            }
         }
     }
         
+    //finding all prime factor in logn
     for(int i = 2; i <= n; i++) {
         int tmp = i;
         cout << i << ": ";
